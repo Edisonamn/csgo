@@ -26,7 +26,7 @@ if [ ! -f "${STEAMAPPDIR}/${STEAMAPP}/cfg/server.cfg" ]; then
 	echo "addons/sourcemod/bin/sourcemod_mm" >> "${STEAMAPPDIR}/${STEAMAPP}/addons/metamod/metaplugins.ini"
 
 	wget https://github.com/Edisonamn/csgo/blob/main/frango.cfg -P "${STEAMAPPDIR}/${STEAMAPP}/cfg"
-	echo "frango.cfg" >> "${STEAMAPPDIR}/${STEAMAPP}/cfg/server.cfg"
+	echo "exec frango.cfg" >> "${STEAMAPPDIR}/${STEAMAPP}/cfg/server.cfg"
 fi
 
 autoexec_file="${STEAMAPPDIR}/${STEAMAPP}/cfg/autoexec.cfg"
