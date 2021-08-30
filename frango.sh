@@ -7,32 +7,27 @@ bash "${STEAMCMDDIR}/steamcmd.sh" +login anonymous \
 				+app_update "${STEAMAPPID}" \
 				+quit
         
-# We assume that if the config is missing, that this is a fresh container
 if [ ! -f "${STEAMAPPDIR}/${STEAMAPP}/cfg/server.cfg" ]; then
-	# Download & extract the config
 	wget -qO- "${DLURL}/master/etc/cfg.tar.gz" | tar xvzf - -C "${STEAMAPPDIR}/${STEAMAPP}"
 	
-	# Are we in a metamod container?
 	if [ ! -z "$METAMOD_VERSION" ]; then
 		LATESTMM=$(wget -qO- https://mms.alliedmods.net/mmsdrop/"${METAMOD_VERSION}"/mmsource-latest-linux)
 		wget -qO- https://mms.alliedmods.net/mmsdrop/"${METAMOD_VERSION}"/"${LATESTMM}" | tar xvzf - -C "${STEAMAPPDIR}/${STEAMAPP}"	
 	fi
 
-	# Are we in a sourcemod container?
 	if [ ! -z "$SOURCEMOD_VERSION" ]; then
 		LATESTSM=$(wget -qO- https://sm.alliedmods.net/smdrop/"${SOURCEMOD_VERSION}"/sourcemod-latest-linux)
 		wget -qO- https://sm.alliedmods.net/smdrop/"${SOURCEMOD_VERSION}"/"${LATESTSM}" | tar xvzf - -C "${STEAMAPPDIR}/${STEAMAPP}"
 	fi
 
-	# Change hostname on first launch (you can comment this out if it has done it's purpose)
 	sed -i -e 's/{{SERVER_HOSTNAME}}/'"${SRCDS_HOSTNAME}"'/g' "${STEAMAPPDIR}/${STEAMAPP}/cfg/server.cfg"
   
-  rm  "${STEAMAPPDIR}/${STEAMAPP}/addons/metamod.vdf"
-  wget https://github.com/Edisonamn/csgo/blob/main/metamod.vdf -P "${STEAMAPPDIR}/${STEAMAPP}/addons"
-  echo "addons/sourcemod/bin/sourcemod_mm" >> "${STEAMAPPDIR}/${STEAMAPP}/addons/metamod/metaplugins.ini"
+	rm  "${STEAMAPPDIR}/${STEAMAPP}/addons/metamod.vdf"
+	wget https://github.com/Edisonamn/csgo/blob/main/metamod.vdf -P "${STEAMAPPDIR}/${STEAMAPP}/addons"
+	echo "addons/sourcemod/bin/sourcemod_mm" >> "${STEAMAPPDIR}/${STEAMAPP}/addons/metamod/metaplugins.ini"
 
-  wget https://github.com/Edisonamn/csgo/blob/main/frango.cfg -P "${STEAMAPPDIR}/${STEAMAPP}/cfg"
-  echo "frango.cfg" >> "${STEAMAPPDIR}/${STEAMAPP}/cfg/server.cfg"
+	wget https://github.com/Edisonamn/csgo/blob/main/frango.cfg -P "${STEAMAPPDIR}/${STEAMAPP}/cfg"
+	echo "frango.cfg" >> "${STEAMAPPDIR}/${STEAMAPP}/cfg/server.cfg"
 fi
 
 autoexec_file="${STEAMAPPDIR}/${STEAMAPP}/cfg/autoexec.cfg"
@@ -47,10 +42,9 @@ if [ -f "$autoexec_file" ]; then
                         ow_args="${ow_args} $default"
                 fi
         done <<EOM
-sv_password	+sv_password "${SRCDS_PW}"
-rcon_password	+rcon_password "${SRCDS_RCONPW}"
-EOM
-
+	sv_password	+sv_password "${SRCDS_PW}"
+	rcon_password	+rcon_password "${SRCDS_RCONPW}"
+	EOM
 fi
 
 cd "${STEAMAPPDIR}"
