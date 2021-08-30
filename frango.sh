@@ -1,12 +1,11 @@
 #!/bin/bash
-
 mkdir -p "${STEAMAPPDIR}" || true  
 
 bash "${STEAMCMDDIR}/steamcmd.sh" +login anonymous \
 				+force_install_dir "${STEAMAPPDIR}" \
 				+app_update "${STEAMAPPID}" \
 				+quit
-        
+
 if [ ! -f "${STEAMAPPDIR}/${STEAMAPP}/cfg/server.cfg" ]; then
 	wget -qO- "${DLURL}/master/etc/cfg.tar.gz" | tar xvzf - -C "${STEAMAPPDIR}/${STEAMAPP}"
 	
