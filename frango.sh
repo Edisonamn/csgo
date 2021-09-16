@@ -44,6 +44,7 @@ if [ -f "$autoexec_file" ]; then
 sv_password	+sv_password "${SRCDS_PW}"
 rcon_password	+rcon_password "${SRCDS_RCONPW}"
 EOM
+
 fi
 
 cd "${STEAMAPPDIR}"
