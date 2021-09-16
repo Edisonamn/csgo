@@ -41,8 +41,8 @@ if [ -f "$autoexec_file" ]; then
                         ow_args="${ow_args} $default"
                 fi
         done <<EOM
-	sv_password	+sv_password "${SRCDS_PW}"
-	rcon_password	+rcon_password "${SRCDS_RCONPW}"
+sv_password	+sv_password "${SRCDS_PW}"
+rcon_password	+rcon_password "${SRCDS_RCONPW}"
 EOM
 fi
 
